@@ -1,0 +1,50 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.5'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id 'java'
+    id 'maven-publish'
+}
+
+group 'org.example'
+version '1.0'
+sourceCompatibility = '1.8'
+
+jar {
+    enabled = true
+    archiveClassifier.set("")
+}
+
+repositories {
+    mavenLocal()
+    maven { url 'https://maven.aliyun.com/repository/public' }
+    maven { url 'https://maven.aliyun.com/repository/google' }
+    maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+    maven { url 'https://maven.aliyun.com/repository/jcenter' }
+    maven { url 'https://maven.aliyun.com/repository/central' }
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifact(jar)
+            pom {
+                groupId project.group // 你的groupId
+                version project.version // 你的版本号
+                artifactId "demo-spring-boot-starter" // 你的artifactId
+            }
+        }
+
+        /*repositories {
+            maven {
+                url = uri("$userHome/.m2/repository")
+            }
+        }*/
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    annotationProcessor "org.springframework.boot:spring-boot-autoconfigure-processor"
+
+}
